@@ -9,12 +9,15 @@
     // Print the list
     internal class Program
     {
+        // global variables
+        static int currentIndex = 0;
+        static double[] prices = new double[10];
+
         static void Main(string[] args)
         {
             // App that calculates the total of many items and the subtotal after tax
 
             // --- Nouns/Variables - Things we know ---
-            double[] prices; // TODO: figure out how many is reasonable
             double taxRate = 0.10;
             bool isRunning = true;
             int choice = -1;
@@ -31,6 +34,12 @@
                     case 0:
                         // exit
                         isRunning = false;
+                        break;
+                    case 1:
+                        AddItem(1.2);
+                        break;
+                    case 2:
+                        PrintList();
                         break;
                     default:
                         // invalid choice, something went wrong
@@ -73,7 +82,16 @@
 
         static void AddItem(double price)
         {
+            // add an item
+            if (currentIndex >= 10)
+            {
+                Console.WriteLine("Too Many Items. Cannot Add");
+                return;
+            }
 
+            prices[currentIndex] = price;
+            currentIndex++;
+            Console.WriteLine("Price Added to List.");
         }
 
         static void Calculate()
@@ -88,7 +106,12 @@
 
         static void PrintList()
         {
+            Console.WriteLine("Printing the list of prices:");
 
+            for (int i = 0; i < prices.Length; i++)
+            {
+                Console.WriteLine(prices[i]);
+            }
         }
     }
 }
